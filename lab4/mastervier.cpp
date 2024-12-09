@@ -1,6 +1,7 @@
 #include "mastervier.h"
 #include "ui_mastervier.h"
 #include <QDebug>
+#include "idatabase.h"
 
 MasterVier::MasterVier(QWidget *parent)
     : QWidget(parent)
@@ -11,6 +12,8 @@ MasterVier::MasterVier(QWidget *parent)
     this->setWindowFlag(Qt::FramelessWindowHint);
 
     goLoginView();
+
+    IDatabase::getInstance();
 }
 
 MasterVier::~MasterVier()
