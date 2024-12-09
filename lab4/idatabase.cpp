@@ -32,6 +32,16 @@ bool IDatabase::initPatientModel()
 
 }
 
+int IDatabase::addNewPatient()
+{
+    patientTabModel->insertRow(patientTabModel->rowCount(),
+                               QModelIndex());
+    QModelIndex curIndex=patientTabModel->index(patientTabModel->rowCount()-1,
+                                           1); //创建最后一行的ModelIndex
+    return curIndex.row();
+
+}
+
 bool IDatabase::searchPatient(QString filter)
 {
     patientTabModel->setFilter(filter);
