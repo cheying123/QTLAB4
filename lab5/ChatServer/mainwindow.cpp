@@ -26,6 +26,7 @@ void MainWindow::on_starStopButton_clicked()
     }else{
         if(!m_chatServer->listen(QHostAddress::Any,1967)){
             QMessageBox::critical(this,"错误","无法启动服务器");
+            return;
         }
         logMessage("服务器已经启动");
         ui->starStopButton->setText("停止服务器");
