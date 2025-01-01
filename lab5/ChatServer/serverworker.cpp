@@ -7,6 +7,7 @@ ServerWorker::ServerWorker(QObject *parent) : QObject(parent)
 {
     m_serverSocket = new QTcpSocket(this);
     connect(m_serverSocket, &QTcpSocket::readyRead,this,&ServerWorker::onReadyRead);
+    connect(m_serverSocket, &QTcpSocket::disconnected,this,&ServerWorker::disconnectedFromClient);
 }
 
 bool ServerWorker::setSockerDescriptor(qintptr sockerDescriptor)
@@ -40,9 +41,10 @@ void ServerWorker::onReadyRead()
             QJsonParseError parseError;
             const QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData, &parseError);
             if (parseError.error == QJsonParseError::NoError) {
-                if (jsonDoc.isObject()) // and is a JSON object
+                if (jsonDoc.isObject()){ // and is a JSON object
                     emit logMessage(QJsonDocument(jsonDoc).toJson(QJsonDocument::Compact));
                     emit jsonReceived(this,jsonDoc.object()); // parse the JSON
+                }
             }
 
 
